@@ -1,5 +1,7 @@
 <?php
 
+require_once('../vendor/j7mbo/twitter-api-php/TwitterAPIExchange.php');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,5 +15,21 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	$settings = array(
+		'oauth_access_token' => Config::get('oauth.oauth_access_token'),
+		'oauth_access_token_secret' => Config::get('oauth.oauth_access_token_secret'),
+		'consumer_key' => Config::get('oauth.consumer_key'),
+		'consumer_secret' => Config::get('oauth.consumer_secret')
+	);
+
+
+	$url = 'https://api.twitter.com/1.1/followers/ids.json';
+	$getfield = '?screen_name=J7mbo';
+	$requestMethod = 'GET';
+
+	$twitter = new TwitterAPIExchange($settings);
+	echo $twitter->setGetfield($getfield)
+		->buildOauth($url, $requestMethod)
+		->performRequest();
+
 });
