@@ -1,6 +1,7 @@
 <?php
 
 require_once('../vendor/j7mbo/twitter-api-php/TwitterAPIExchange.php');
+require_once '../alchemyapi_php/alchemyapi.php';
 
 /*
 |--------------------------------------------------------------------------

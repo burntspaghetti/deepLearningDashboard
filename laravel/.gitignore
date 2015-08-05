@@ -6,3 +6,4 @@ composer.lock
 .env.php
 .DS_Store
 Thumbs.db
+/alchemyapi_php/api_key.txt
