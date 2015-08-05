@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class TwitterController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function home()
+	public function search()
 	{
-		return View::make('home');
+
 	}
 
 }

@@ -35,3 +35,8 @@ Route::get('/', function()
 	$results = json_decode($jsonResponse);
 	dd($results);
 });
+
+
+Route::get('/twitterSearch', 'TwitterController@search');
+
+Route::get('/home', 'HomeController@home');
