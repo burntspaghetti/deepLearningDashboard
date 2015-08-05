@@ -21,15 +21,16 @@ Route::get('/', function()
 		'consumer_key' => Config::get('oauth.consumer_key'),
 		'consumer_secret' => Config::get('oauth.consumer_secret')
 	);
+	
+	$url = 'https://api.twitter.com/1.1/search/tweets.json';
 
-
-	$url = 'https://api.twitter.com/1.1/followers/ids.json';
-	$getfield = '?screen_name=J7mbo';
+	$getfield = '?q=alchemyapi&src=typd';
 	$requestMethod = 'GET';
 
 	$twitter = new TwitterAPIExchange($settings);
-	echo $twitter->setGetfield($getfield)
-		->buildOauth($url, $requestMethod)
-		->performRequest();
-
+	$jsonResponse =  $twitter->setGetfield($getfield)
+							 ->buildOauth($url, $requestMethod)
+							 ->performRequest();
+	$results = json_decode($jsonResponse);
+	dd($results);
 });
