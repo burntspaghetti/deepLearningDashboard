@@ -45,12 +45,7 @@ class TwitterController extends BaseController {
 		$results = json_decode($jsonResponse);
 
 		$alchemyapi = new AlchemyAPI();
-
 		$tweetIntel = [];
-		$concepts = [];
-		$keywords = [];
-		$entities = [];
-		$sentiment = [];
 
 		foreach($results->statuses as $tweet)
 		{
@@ -67,6 +62,10 @@ class TwitterController extends BaseController {
 			{
 				$tweetSentiment = $sentimentResponse['docSentiment'];
 			}
+			else
+			{
+			    $tweetSentiment = null;
+			}
 
 			//DONE
 			$conceptOptions = ['maxRetrieve' => 5, 'linkedData' => 1, 'showSourceText' => 1];
@@ -75,6 +74,10 @@ class TwitterController extends BaseController {
 			{
 				$tweetConcepts = $conceptsResponse['concepts'];
 			}
+			else
+			{
+			    $tweetConcepts = null;
+			}
 
 			//DONE
 			$entityOptions = ['maxRetrieve' => 5, 'linkedData' => 1, 'sentiment' => 1];
@@ -82,6 +85,10 @@ class TwitterController extends BaseController {
 			if(array_key_exists('entities', $entityResponse))
 			{
 				$tweetEntities = $entityResponse['entities'];
+			}
+			else
+			{
+			    $tweetEntities = null;
 			}
 
 			//DONE
@@ -92,7 +99,6 @@ class TwitterController extends BaseController {
 				$tweetKeywords = $keywordResponse['keywords'];
 			}
 
-			//need to include tweet text...
 			$tmp = ['tweet' => $tweet->text,
 					'screenName' => $tweet->user->screen_name,
 					'userURL' => $tweet->user->url,

@@ -2,7 +2,7 @@
 @section('content')
     <br>
     <br>
-    <div class="col-lg-9">
+    <div class="col-lg-4 col-lg-offset-4">
         <div class="bs-component">
             <div class="well">
                 {{ Form::open([ 'action' => 'StackExchangeController@search', 'class' => 'clearfix', 'style' => 'padding:1em 3em;']) }}

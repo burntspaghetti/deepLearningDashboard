@@ -44,10 +44,7 @@ class StackExchangeController extends BaseController {
         $response = json_decode(curl($searchURL));
 
         $alchemyapi = new AlchemyAPI();
-        $sentiment = [];
-        $concepts = [];
-        $keywords = [];
-        $entities = [];
+        $postIntel = [];
 
         foreach($response->items as $post)
         {
@@ -56,12 +53,15 @@ class StackExchangeController extends BaseController {
 
             //DONE
             $sentimentOptions = ['sentiment' => 1];
-            $sentimentResponse = $alchemyapi->sentiment('text', $textResponse['text'], $sentimentOptions);
+//            $sentimentResponse = $alchemyapi->sentiment('text', $textResponse['text'], $sentimentOptions);
             $sentimentResponse = $alchemyapi->sentiment('url', $post->link, $sentimentOptions);
             if(array_key_exists('docSentiment', $sentimentResponse))
             {
                 $postSentiment = $sentimentResponse['docSentiment'];
-                array_push($sentiment, $postSentiment);
+            }
+            else
+            {
+                $postSentiment = null;
             }
 
             //DONT USE
@@ -84,8 +84,10 @@ class StackExchangeController extends BaseController {
             if(array_key_exists('entities', $entityResponse))
             {
                 $postEntities = $entityResponse['entities'];
-                array_push($entities, $postEntities);
-                //TODO: append url
+            }
+            else
+            {
+                $postEntities = null;
             }
 
 
@@ -95,25 +97,22 @@ class StackExchangeController extends BaseController {
             if(array_key_exists('keywords', $keywordResponse))
             {
                 $postKeywords = $keywordResponse['keywords'];
-                array_push($keywords, $postKeywords);
-                //TODO: append url
             }
+            else
+            {
+                $postKeywords = null;
+            }
+
+            $tmp = ['link' => $post->link,
+                    'title' => $post->title,
+                    'answered' => $post->is_answered,
+                    'sentiment' => $postSentiment,
+                    'entities' => $postEntities,
+                    'keywords' => $postKeywords];
+            
+            array_push($postIntel, $tmp);
         }
 
-        dd($keywords);
-
-        
-        Session::put('stack sentiment', $sentiment);
-        Session::put('stack entities', $entities);
-        Session::put('stack keywords', $keywords);
-        
-        return View::make('stackResults');
-//        return Redirect::action('StackExchangeController@results');
+        return View::make('stackResults')->with('postIntel', $postIntel)->with('searchTerm', Input::get('stackExchangeSearch'));
 	}
-
-    public function results()
-    {
-
-    }
-
 }

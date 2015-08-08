@@ -4,7 +4,7 @@
     <br>
     <br>
 
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-lg-offset-1">
         <div class="bs-component">
             <div class="well">
                 {{ Form::open([ 'action' => 'TwitterController@search', 'class' => 'clearfix', 'style' => 'padding:1em 3em;']) }}
