@@ -66,7 +66,6 @@ class TwitterController extends BaseController {
 			if(array_key_exists('docSentiment', $sentimentResponse))
 			{
 				$tweetSentiment = $sentimentResponse['docSentiment'];
-//				array_push($sentiment, $tweetSentiment);
 			}
 
 			//DONE
@@ -75,7 +74,6 @@ class TwitterController extends BaseController {
 			if(array_key_exists('concepts', $conceptsResponse))
 			{
 				$tweetConcepts = $conceptsResponse['concepts'];
-//				array_push($concepts, $tweetConcepts);
 			}
 
 			//DONE
@@ -84,7 +82,6 @@ class TwitterController extends BaseController {
 			if(array_key_exists('entities', $entityResponse))
 			{
 				$tweetEntities = $entityResponse['entities'];
-//				array_push($entities, $tweetEntities);
 			}
 
 			//DONE
@@ -93,17 +90,21 @@ class TwitterController extends BaseController {
 			if(array_key_exists('keywords', $keywordResponse))
 			{
 				$tweetKeywords = $keywordResponse['keywords'];
-//				array_push($keywords, $tweetKeywords);
 			}
 
 			//need to include tweet text...
-			$tmp = ['tweet' => $tweet->text,'sentiment' => $tweetSentiment, 'entities' => $tweetEntities, 'keywords' => $tweetKeywords, 'concepts' => $tweetConcepts];
+			$tmp = ['tweet' => $tweet->text,
+					'screenName' => $tweet->user->screen_name,
+					'userURL' => $tweet->user->url,
+					'sentiment' => $tweetSentiment,
+					'entities' => $tweetEntities,
+					'keywords' => $tweetKeywords,
+					'concepts' => $tweetConcepts];
 			array_push($tweetIntel, $tmp);
 		}
 
-		return View::make('twitterResults')->with('tweetIntel', $tweetIntel);
+		return View::make('twitterResults')->with('tweetIntel', $tweetIntel)->with('searchTerm', Input::get('twitterSearch'));
 		//count up all positiive, negatives, and mixed?
-
 	}
 
 }

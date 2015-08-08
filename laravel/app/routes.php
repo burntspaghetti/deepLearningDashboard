@@ -17,7 +17,7 @@ require_once '../alchemyapi_php/alchemyapi.php';
 
 Route::get('/test', function()
 {
-	return View::make('twitterResults');
+	return View::make('twitterSearch');
 });
 
 
