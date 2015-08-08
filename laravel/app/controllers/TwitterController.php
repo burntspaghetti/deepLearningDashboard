@@ -5,27 +5,26 @@ require_once '../alchemyapi_php/alchemyapi.php';
 
 class TwitterController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	public function home()
+	{
+		return View::make('twitterSearch');
+	}
 
 	public function search()
 	{
-		$searchTerm = urlencode(Input::get('twitterSearch'));
-		//add checkbox for mixed, recent, or popular param
-		$result_type = 'mixed';
-		$count = 100;
+		$validation = Validator::make(
+			Input::all(), array(
+				'twitterSearch' => 'required | max:50',
+			)
+		);
 
-		
+		if ($validation->fails()) {
+			return Redirect::back()->withInput()->withErrors($validation->messages());
+		}
+
+		$searchTerm = urlencode(Input::get('twitterSearch'));
+		$result_type = Input::get('type');
+		$count = 10;
 
 		$settings = array(
 			'oauth_access_token' => Config::get('oauth.oauth_access_token'),
@@ -36,55 +35,71 @@ class TwitterController extends BaseController {
 
 		$url = 'https://api.twitter.com/1.1/search/tweets.json';
 
-		//two word search
-		//https://twitter.com/search?q=barack%20obama&src=typd
-
 		$getfield = '?q='. $searchTerm . '&result_type=' . $result_type .'&count=' . $count . '&src=typd';
 		$requestMethod = 'GET';
 
 		$twitter = new TwitterAPIExchange($settings);
 		$jsonResponse =  $twitter->setGetfield($getfield)
-			                     ->buildOauth($url, $requestMethod)
-			                     ->performRequest();
+			->buildOauth($url, $requestMethod)
+			->performRequest();
 		$results = json_decode($jsonResponse);
-		dd($results);
-
 
 		$alchemyapi = new AlchemyAPI();
-		$options = ['sentiment' => 1];
-
-//		dd($response);
-
-
 
 		$tweets = [];
 		$concepts = [];
 		$keywords = [];
 		$entities = [];
+		$sentiment = [];
 
 		foreach($results->statuses as $tweet)
 		{
-//			dd($tweet);
-			
-			var_dump($tweet->text);
-			//push all of the following to their own respective 4 arrays
-			//search through concepts, keywords, and entities to aggregate results
-			//average relevance and sentiments
+			//need to set options for each call
+			//sentiment => 1 = keyword, entity, or relational sentiment
+			//sentiment => 0 = document level sentiment...
+			//experiment with each
+			//returning the same sentiment?
 
-			//make sure to grab linked data? link to in table?
-//			$response = $alchemyapi->concepts('text', $tweet->text, $options);
-//			$response = $alchemyapi->keywords('text', $tweet->text, $options);
-//			$response = $alchemyapi->sentiment('text', $tweet->text, $options);
-			$response = $alchemyapi->entities('text', $tweet->text, $options);
-			dd($response);
+			//DONE
+			$sentimentOptions = ['sentiment' => 0];
+			$sentimentResponse = $alchemyapi->sentiment('text', $tweet->text, $sentimentOptions);
+			if(array_key_exists('docSentiment', $sentimentResponse))
+			{
+				$tweetSentiment = $sentimentResponse['docSentiment'];
+				array_push($sentiment, $tweetSentiment);
+			}
 
+			//DONE
+			$conceptOptions = ['maxRetrieve' => 5, 'linkedData' => 1, 'showSourceText' => 1];
+			$conceptsResponse = $alchemyapi->concepts('text', $tweet->text, $conceptOptions);
+			if(array_key_exists('concepts', $conceptsResponse))
+			{
+				$tweetConcepts = $conceptsResponse['concepts'];
+				array_push($concepts, $tweetConcepts);
+			}
 
-//			array_push($tweets, $tweet);
-			//feed tweets into alchemy api sentiment
+			//DONE
+			$entityOptions = ['maxRetrieve' => 5, 'linkedData' => 1, 'sentiment' => 1];
+			$entityResponse = $alchemyapi->entities('text', $tweet->text, $entityOptions);
+			if(array_key_exists('entities', $entityResponse))
+			{
+				$tweetEntities = $entityResponse['entities'];
+				array_push($entities, $tweetEntities);
+			}
 
+			//DONE
+			$keywordOptions = ['sentiment' => 1, 'showSourceText' => 1, 'maxRetrieve' => 5];
+			$keywordResponse = $alchemyapi->keywords('text', $tweet->text, $keywordOptions);
+			if(array_key_exists('keywords', $keywordResponse))
+			{
+				$keyWordEntities = $keywordResponse['keywords'];
+				array_push($keywords, $keyWordEntities);
+			}
 		}
+//        dd('stop');
 
-		dd($results);
+		//count up all positiive, negatives, and mixed?
+		dd($keywords);
 
 	}
 

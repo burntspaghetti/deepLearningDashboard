@@ -127,6 +127,8 @@ Route::get('/', function()
 });
 
 
-Route::post('/twitterSearch', 'TwitterController@search');
 
-Route::get('/home', 'HomeController@home');
+
+Route::get('/twitter', 'TwitterController@home');
+Route::post('/twitterSearch', 'TwitterController@search');
+Route::get('/twitter/searchResults', 'TwitterController@results');
