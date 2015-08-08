@@ -24,7 +24,7 @@ class TwitterController extends BaseController {
 
 		$searchTerm = urlencode(Input::get('twitterSearch'));
 		$result_type = Input::get('type');
-		$count = 10;
+		$count = Input::get('numberOfTweets');
 
 		$settings = array(
 			'oauth_access_token' => Config::get('oauth.oauth_access_token'),
@@ -46,7 +46,7 @@ class TwitterController extends BaseController {
 
 		$alchemyapi = new AlchemyAPI();
 
-		$tweets = [];
+		$tweetIntel = [];
 		$concepts = [];
 		$keywords = [];
 		$entities = [];
@@ -66,7 +66,7 @@ class TwitterController extends BaseController {
 			if(array_key_exists('docSentiment', $sentimentResponse))
 			{
 				$tweetSentiment = $sentimentResponse['docSentiment'];
-				array_push($sentiment, $tweetSentiment);
+//				array_push($sentiment, $tweetSentiment);
 			}
 
 			//DONE
@@ -75,7 +75,7 @@ class TwitterController extends BaseController {
 			if(array_key_exists('concepts', $conceptsResponse))
 			{
 				$tweetConcepts = $conceptsResponse['concepts'];
-				array_push($concepts, $tweetConcepts);
+//				array_push($concepts, $tweetConcepts);
 			}
 
 			//DONE
@@ -84,7 +84,7 @@ class TwitterController extends BaseController {
 			if(array_key_exists('entities', $entityResponse))
 			{
 				$tweetEntities = $entityResponse['entities'];
-				array_push($entities, $tweetEntities);
+//				array_push($entities, $tweetEntities);
 			}
 
 			//DONE
@@ -92,14 +92,17 @@ class TwitterController extends BaseController {
 			$keywordResponse = $alchemyapi->keywords('text', $tweet->text, $keywordOptions);
 			if(array_key_exists('keywords', $keywordResponse))
 			{
-				$keyWordEntities = $keywordResponse['keywords'];
-				array_push($keywords, $keyWordEntities);
+				$tweetKeywords = $keywordResponse['keywords'];
+//				array_push($keywords, $tweetKeywords);
 			}
-		}
-//        dd('stop');
 
+			//need to include tweet text...
+			$tmp = ['tweet' => $tweet->text,'sentiment' => $tweetSentiment, 'entities' => $tweetEntities, 'keywords' => $tweetKeywords, 'concepts' => $tweetConcepts];
+			array_push($tweetIntel, $tmp);
+		}
+
+		return View::make('twitterResults')->with('tweetIntel', $tweetIntel);
 		//count up all positiive, negatives, and mixed?
-		dd($keywords);
 
 	}
 

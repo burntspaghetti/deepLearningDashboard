@@ -67,7 +67,10 @@
                     {{--</ul>--}}
                 {{--</li>--}}
                 <li>
-                    <a href="../help/">Help</a>
+                    <a href="{{ action('TwitterController@home') }}">Twitter</a>
+                </li>
+                <li>
+                    <a href="{{ action('StackExchangeController@home') }}">StackExchange</a>
                 </li>
             </ul>
 
@@ -823,7 +826,7 @@
                     </ul>
 
                     <ul class="pager">
-                        <li class="previous disabled"><a href="#">← Older</a></li>
+                        <li class="previous disabled"><a href="#">�? Older</a></li>
                         <li class="next"><a href="#">Newer →</a></li>
                     </ul>
                 </div>
