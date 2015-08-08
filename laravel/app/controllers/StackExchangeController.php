@@ -22,8 +22,6 @@ class StackExchangeController extends BaseController {
             return Redirect::back()->withInput()->withErrors($validation->messages());
         }
 
-		$searchTerm = urlencode(Input::get('stackExchangeSearch'));
-
         function curl($url){
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_URL, $url);
@@ -39,9 +37,12 @@ class StackExchangeController extends BaseController {
 
             return $result;
         }
+        $searchTerm = urlencode(Input::get('stackExchangeSearch'));
+        $count = Input::get('count');
 
-        $searchURL = "http://api.stackexchange.com/2.2/search?pagesize=100&order=desc&sort=activity&intitle=". $searchTerm ."&site=stackoverflow";
+        $searchURL = "http://api.stackexchange.com/2.2/search?pagesize=". $count . "&order=desc&sort=activity&intitle=". $searchTerm ."&site=stackoverflow";
         $response = json_decode(curl($searchURL));
+
 
         $alchemyapi = new AlchemyAPI();
         $postIntel = [];
@@ -77,7 +78,7 @@ class StackExchangeController extends BaseController {
 //            }
 
 
-            $entityOptions = ['maxRetrieve' => 5, 'linkedData' => 1, 'sentiment' => 1];
+            $entityOptions = ['maxRetrieve' => 5, 'sentiment' => 1];
 //            $entityResponse = $alchemyapi->entities('url', $post->link, $entityOptions);
             //text seems to return better results than link?
             $entityResponse = $alchemyapi->entities('text', $textResponse['text'], $entityOptions);
