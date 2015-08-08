@@ -35,9 +35,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="www.alchemyapi.com/" target="_blank">Text Analysis by AlchemyAPI</a></li>
-                {{ HTML::image(public_path() . '/images/AlchemyVisionApi.png') }}
-
-                {{--<li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>--}}
+                <li><img src="/images/AlchemyVisionApi.png" style="height: 15%; padding-top: 10px"></li>
+                <li><img href="" src="/images/Twitter.png" style="height: 15%; padding-top: 10px; padding-left: 5px"></li>
+                <li><li><img src="/images/stack.png" style="height: 15%; padding-top: 10px; padding-left: 5px"></li></li>
             </ul>
         </div>
     </div>
