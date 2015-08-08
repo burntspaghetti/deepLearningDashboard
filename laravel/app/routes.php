@@ -132,3 +132,7 @@ Route::get('/', function()
 Route::get('/twitter', 'TwitterController@home');
 Route::post('/twitterSearch', 'TwitterController@search');
 Route::get('/twitter/searchResults', 'TwitterController@results');
+
+Route::get('/stackExchange', 'StackExchangeController@home');
+Route::post('stackExchangeSearch', 'StackExchangeController@search');
+Route::get('/stackExchange/searchResults', 'StackExchangeController@results');
