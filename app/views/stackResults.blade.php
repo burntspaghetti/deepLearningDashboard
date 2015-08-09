@@ -34,7 +34,9 @@
     {{--</div>--}}
     @if(empty($postIntel))
         <hr/>
-        <h1>{{$searchTerm}}</h1>
+        <div align="center">
+            <h1>{{$searchTerm}}</h1>
+        </div>
         <hr/>
         <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -44,7 +46,9 @@
         <div class="col-lg-12">
             <div class="bs-component">
                 <hr/>
-                <h1>{{$searchTerm}}</h1>
+                <div align="center">
+                    <h1>{{$searchTerm}}</h1>
+                </div>
                 <hr/>
                 <table id="sentiment" class="table table-bordered table-striped">
                     <thead>

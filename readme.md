@@ -1,25 +1,20 @@
-## Laravel PHP Framework
+#Deep Learning Dashboard (DLD)
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+##Current State:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+This project is a scalable proof of concept utilizing deep learning technology from AlchemyAPI. The process begins with user input search text. DLD then grabs tweets and posts matching the search text from Twitter and StackExchange APIs and then feeds the responses into AlchemyAPI for natural language processing (NLP) analysis. The information gathered from Twitter and StackExchange is analyzed for sentiment, keywords, entities, concepts, and relevance. The results are then presented in graphical form using Highcharts as well as color coded table form using Datatables for quick queries.
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+##Future State:
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Users will be able to track and monitor various trends based on a search text, each of which will aggregate new data daily. Assuming TOS compliance, the future state of DLD will run recurring jobs to fetch API data in the background and then store results in a MySQL database for historical analysis. 
 
-## Official Documentation
+##Limitations:
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+DLD runs large amounts of API calls en masse which can result in long waiting time. The future state will resolve this issue by running the API calls periodically in the background and return the stored results in the database. 
 
-### Contributing To Laravel
+##Additional Notes:
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+It is recommended to use DLD in Chrome.
 
-### License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
