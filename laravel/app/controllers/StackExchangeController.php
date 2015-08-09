@@ -24,28 +24,6 @@ class StackExchangeController extends BaseController {
 
         $response = $this->getPosts(Input::get('stackExchangeSearch'), Input::get('count'));
 
-//        function curl($url){
-//            $curl = curl_init();
-//            curl_setopt($curl, CURLOPT_URL, $url);
-//            curl_setopt($curl, CURLOPT_HEADER, 0);
-//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-//            curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-//            curl_setopt($curl, CURLOPT_USERAGENT, 'cURL');
-//            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-//            curl_setopt($curl, CURLOPT_ENCODING , "gzip");
-//
-//            $result = curl_exec($curl);
-//            curl_close($curl);
-//
-//            return $result;
-//        }
-//
-//        $searchTerm = urlencode(Input::get('stackExchangeSearch'));
-//        $count = Input::get('count');
-//
-//        $searchURL = "http://api.stackexchange.com/2.2/search?pagesize=". $count . "&order=desc&sort=activity&intitle=". $searchTerm ."&site=stackoverflow";
-//        $response = json_decode(curl($searchURL));
-
         $alchemyapi = new AlchemyAPI();
         $postIntel = [];
 
