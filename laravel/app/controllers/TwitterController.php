@@ -109,6 +109,7 @@ class TwitterController extends BaseController {
 			array_push($tweetIntel, $tmp);
 		}
 
+
 		return View::make('twitterResults')->with('tweetIntel', $tweetIntel)->with('searchTerm', Input::get('twitterSearch'));
 		//count up all positiive, negatives, and mixed?
 	}

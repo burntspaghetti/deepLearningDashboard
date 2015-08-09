@@ -51,6 +51,12 @@
     </div>
     <div class="col-lg-12">
         <div class="bs-component">
+            @if(empty($tweetIntel))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    Twitter failed to return any results. Please refine your search or try again later.
+                </div>
+            @endif
             <h1>{{$searchTerm}}</h1>
             <hr/>
             <table id="sentiment" class="table table-bordered table-striped">
