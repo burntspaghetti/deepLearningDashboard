@@ -2,7 +2,7 @@
 @section('content')
     <br>
     <br>
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-lg-offset-1">
         <div class="bs-component">
             <div class="well">
                 {{ Form::open([ 'action' => 'TwitterController@search', 'class' => 'clearfix', 'style' => 'padding:1em 3em;']) }}
@@ -50,67 +50,18 @@
         </div>
     </div>
 
+    {{--pie chart--}}
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <div class="col-lg-12">
+        <div class="bs-component">
+            <h1>{{$searchTerm}}</h1>
+            <hr/>
+            <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            <hr/>
+        </div>
+    </div>
 
-    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-
-
-    <script>
-        $(function () {
-
-            $(document).ready(function () {
-
-                // Build the chart
-                $('#container').highcharts({
-                    //#18bc9c positive
-                    //#b4bcc2 neutral
-                    //#e74c3c negative
-                    colors: ['#18bc9c', '#e74c3c', '#b4bcc2'],
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'Overall Tweet Sentiment'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: "Sentiment",
-                        colorByPoint: true,
-                        data: [{
-                            name: "Positive",
-                            y: <?php echo $percentages['positive'] ?>
-                        }, {
-                            name: "Negative",
-//                            y: 24.03,
-                            y: <?php echo $percentages['negative'] ?>
-//                            sliced: true,
-//                            selected: true
-                        }, {
-                            name: "Neutral",
-//                            y: 10.38
-                            y: <?php echo $percentages['neutral'] ?>
-                        }]
-                    }]
-                });
-            });
-        });
-    </script>
 
     <div class="col-lg-12">
         <div class="bs-component">
@@ -120,8 +71,6 @@
                     Twitter failed to return any results. Please refine your search or try again later.
                 </div>
             @endif
-            <h1>{{$searchTerm}}</h1>
-            <hr/>
             <table id="sentiment" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -209,5 +158,61 @@
         $(document).ready( function () {
             $('#sentiment').DataTable();
         } );
+    </script>
+
+    <script>
+        $(function () {
+
+            $(document).ready(function () {
+
+                // Build the chart
+                $('#container').highcharts({
+                    //#18bc9c positive
+                    //#b4bcc2 neutral
+                    //#e74c3c negative
+                    colors: ['#18bc9c', '#e74c3c', '#b4bcc2'],
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Overall Tweet Sentiment'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: "Sentiment",
+                        colorByPoint: true,
+                        data: [{
+                            name: "Positive",
+                            y: <?php echo $percentages['positive'] ?>
+                        }, {
+                            name: "Negative",
+//                            y: 24.03,
+                            y: <?php echo $percentages['negative'] ?>
+//                            sliced: true,
+//                            selected: true
+                        }, {
+                            name: "Neutral",
+//                            y: 10.38
+                            y: <?php echo $percentages['neutral'] ?>
+                        }]
+                    }]
+                });
+            });
+        });
     </script>
 @endsection
