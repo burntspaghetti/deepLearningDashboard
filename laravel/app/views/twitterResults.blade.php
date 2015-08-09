@@ -44,7 +44,7 @@
                         {{--</div>--}}
                     </div>
                 </div>
-                <button class="btn btn-success" type="submit">Submit</button>
+                <button class="btn btn-success" type="submit" onClick="this.form.submit(); this.disabled=true; this.innerHTML='Loading...Please wait...'; ">Submit</button>
                 {{ Form::close() }}
             </div>
         </div>
@@ -83,7 +83,7 @@
                             </td>
                             <td>
                                 <ul>
-                                    @if(array_key_exists('entites', $intel))
+                                    @if(array_key_exists('entities', $intel))
                                         @foreach($intel['entities'] as $entity)
                                             @if(array_key_exists('sentiment', $entity))
                                                 @if($entity['sentiment']['type'] == 'negative')

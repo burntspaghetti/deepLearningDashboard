@@ -47,12 +47,10 @@
                     </div>
                 </div>
 
-                <button class="btn btn-success" type="submit">Submit</button>
+                <button class="btn btn-success" type="submit" onClick="this.form.submit(); this.disabled=true; this.innerHTML='Loading...Please wait...'; ">Submit</button>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
-
-
 
 @endsection

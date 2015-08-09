@@ -14,15 +14,17 @@
                             {{ $errors->first('stackExchangeSearch', '<p class="text-danger" style="padding:1em;">:message</p>') }}
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            {{ Form::label('count', '# of results:') }}
-                            <br>
-                            {{ Form::select('count', array('5' => '5', '10' => '10', '15' => '15'), null, array('class' => 'form-control')) }}
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                {{ Form::label('count', '# of results:') }}
+                                <br>
+                                {{ Form::select('count', array('5' => '5', '10' => '10', '15' => '15'), null, array('class' => 'form-control')) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success" type="submit">Submit</button>
+                <button class="btn btn-success" type="submit" onClick="this.form.submit(); this.disabled=true; this.innerHTML='Loading...Please wait...'; ">Submit</button>
                 {{ Form::close() }}
             </div>
         </div>
@@ -32,7 +34,6 @@
         <div class="bs-component">
             <h1>{{$searchTerm}}</h1>
             <hr/>
-
             <table id="sentiment" class="table table-bordered table-striped">
                 <thead>
                 <tr>

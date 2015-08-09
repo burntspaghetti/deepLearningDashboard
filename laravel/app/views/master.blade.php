@@ -56,6 +56,7 @@
     {{HTML::script('bower_components/datatables/media/js/jquery.dataTables.js')}}
     {{HTML::script('bower_components/datatables/integration/dataTables.bootstrap.js')}}
     {{ HTML::style('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}
+    <link rel="stylesheet" href="http://css-spinners.com/css/spinner/whirly.css" type="text/css">
     @yield('content')
 </div>
 
