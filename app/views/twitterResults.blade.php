@@ -97,7 +97,7 @@
                             <tr>
                                 <td>
                                     {{--color code overall sentiment...--}}
-                                    @if(array_key_exists('sentiment', $intel))
+                                    @if(array_key_exists('sentiment', $intel) && !empty($intel['sentiment']))
                                         @if($intel['sentiment']['type'] == 'negative')
                                             <p class="text-danger">{{$intel['tweet']}}</p>
                                         @elseif($intel['sentiment']['type'] == 'positive')
@@ -112,7 +112,7 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        @if(array_key_exists('entities', $intel))
+                                        @if(array_key_exists('entities', $intel) && !empty($intel['entities']))
                                             @foreach($intel['entities'] as $entity)
                                                 @if(array_key_exists('sentiment', $entity))
                                                     @if($entity['sentiment']['type'] == 'negative')
@@ -131,7 +131,7 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        @if(array_key_exists('keywords', $intel))
+                                        @if(array_key_exists('keywords', $intel) && !empty($intel['keywords']))
                                             @foreach($intel['keywords'] as $keyword)
                                                 @if(array_key_exists('sentiment', $keyword))
                                                     @if($keyword['sentiment']['type'] == 'negative')
@@ -150,7 +150,7 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        @if(array_key_exists('concepts', $intel))
+                                        @if(array_key_exists('concepts', $intel) && !empty($intel['concepts']))
                                             @foreach($intel['concepts'] as $concept)
                                                 <li>{{$concept['text']}} ({{round($concept['relevance'], 2)}})</li>
                                             @endforeach

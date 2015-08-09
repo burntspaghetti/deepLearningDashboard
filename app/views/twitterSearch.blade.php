@@ -19,7 +19,7 @@
                     <div class="form-group">
                         {{--<div class="row">--}}
                             <div class="col-sm-3">
-                                {{ Form::label('type', 'Type of tweets?') }}
+                                {{ Form::label('type', 'Type of tweets:') }}
                                 <br/>
                                 <label class="radio-inline">
                                     {{Form::radio('type', 'mixed', true)}} Popular & Recent
@@ -39,6 +39,7 @@
                                     {{ Form::label('numberOfTweets', '# of tweets:') }}
                                     <br>
                                     {{ Form::select('numberOfTweets', array('10' => '10', '50' => '50', '100' => '100'), null, array('class' => 'form-control')) }}
+                                    <small>a higher # will result in longer loading time</small>
                                 </div>
                             </div>
                         {{--</div>--}}
