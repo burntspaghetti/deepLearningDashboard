@@ -46,6 +46,10 @@ class TwitterController extends BaseController {
 
 		$alchemyapi = new AlchemyAPI();
 		$tweetIntel = [];
+		$sentiment = [];
+		$positive = [];
+		$negative = [];
+		$neutral = [];
 
 		foreach($results->statuses as $tweet)
 		{
@@ -106,12 +110,38 @@ class TwitterController extends BaseController {
 					'entities' => $tweetEntities,
 					'keywords' => $tweetKeywords,
 					'concepts' => $tweetConcepts];
+
 			array_push($tweetIntel, $tmp);
+
+			if(!empty($tweetSentiment))
+			{
+				if($tweetSentiment['type'] == 'positive')
+				{
+					array_push($positive, $tweetSentiment['type']);
+				}
+				elseif($tweetSentiment['type'] == 'negative')
+				{
+					array_push($negative, $tweetSentiment['type']);
+				}
+				elseif($tweetSentiment['type'] == 'neutral')
+				{
+					array_push($neutral, $tweetSentiment['type']);
+				}
+			}
 		}
 
+		$positiveCount = count($positive);
+		$negativeCount = count($negative);
+		$neutralCount = count($neutral);
+		$totalResults = $positiveCount + $negativeCount + $neutralCount;
+		$posPercent = ($positiveCount / $totalResults) * 100;
+		$negPercent = ($negativeCount / $totalResults) * 100;
+		$neuPercent = ($neutralCount / $totalResults) * 100;
+		$percentages = ['positive' => $posPercent, 'negative' => $negPercent, 'neutral' => $neuPercent];
 
-		return View::make('twitterResults')->with('tweetIntel', $tweetIntel)->with('searchTerm', Input::get('twitterSearch'));
-		//count up all positiive, negatives, and mixed?
+		return View::make('twitterResults')->with('tweetIntel', $tweetIntel)
+			                               ->with('searchTerm', Input::get('twitterSearch'))
+										   ->with('percentages', $percentages);
 	}
 
 }
