@@ -2,7 +2,7 @@
 
 ##Current State:
 
-This project is a scalable proof of concept utilizing deep learning technology from AlchemyAPI. The process begins with user input search text. DLD then grabs tweets and posts matching the search text from Twitter and StackExchange APIs and then feeds the responses into AlchemyAPI for natural language processing (NLP) analysis. The information gathered from Twitter and StackExchange is analyzed for sentiment, keywords, entities, concepts, and relevance. The results are then presented in graphical form using Highcharts as well as color coded table form using Datatables for quick queries.
+This project is a scalable proof of concept utilizing deep learning technology from AlchemyAPI. The process begins with user input search text. DLD then grabs tweets and posts matching the search text from Twitter and StackExchange APIs and then feeds the responses into AlchemyAPI for natural language processing (NLP) analysis. The information gathered from Twitter and StackExchange is analyzed for sentiment, keywords, entities, concepts, and relevance. The results are then presented in graphical form using [Highcharts](http://www.highcharts.com/) as well as color coded table form using [DataTables](https://www.datatables.net/) for quick queries.
 
 ##Future State:
 
@@ -10,7 +10,7 @@ Users will be able to track and monitor various trends based on a search text, e
 
 ##Limitations:
 
-DLD runs large amounts of API calls en masse which can result in long waiting time. The future state will resolve this issue by running the API calls periodically in the background and return the stored results in the database. 
+DLD runs large amounts of API calls en masse which can result in long waiting times. The future state will resolve this issue by fetching data from the database instead of waiting on the APIs.
 
 ##Additional Notes:
 
