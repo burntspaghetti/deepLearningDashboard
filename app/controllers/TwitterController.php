@@ -128,6 +128,13 @@ class TwitterController extends BaseController {
 		$negativeCount = count($negative);
 		$neutralCount = count($neutral);
 		$totalResults = $positiveCount + $negativeCount + $neutralCount;
+
+		if($totalResults == 0)
+		{
+		    $percentages = ['positive' => 0, 'negative' => 0, 'neutral' => 0];
+			return $percentages;
+		}
+		
 		$posPercent = ($positiveCount / $totalResults) * 100;
 		$negPercent = ($negativeCount / $totalResults) * 100;
 		$neuPercent = ($neutralCount / $totalResults) * 100;

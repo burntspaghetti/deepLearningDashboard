@@ -1,9 +1,7 @@
 @extends('master')
 @section('content')
-
+    
     <br>
-    <br>
-
     <div class="col-lg-9 col-lg-offset-1">
         <div class="bs-component">
             <div class="well">
@@ -13,7 +11,7 @@
                         <!--twitterSearch Form Input-->
                         <div class="form-group">
                             {{ Form::label('twitterSearch', 'Twitter Search: ') }}
-                            {{ Form::input('text', 'twitterSearch', null, array('class' => 'form-control')) }}
+                            {{ Form::input('text', 'twitterSearch', 'alchemyapi', array('class' => 'form-control')) }}
                             {{ $errors->first('twitterSearch', '<p class="text-danger" style="padding:1em;">:message</p>') }}
                         </div>
                     </div>
@@ -24,15 +22,15 @@
                                 {{ Form::label('type', 'Type of tweets?') }}
                                 <br/>
                                 <label class="radio-inline">
-                                    {{Form::radio('type', 'popular', true)}} Popular
+                                    {{Form::radio('type', 'mixed', true)}} Popular & Recent
+                                </label>
+                                <br>
+                                <label class="radio-inline">
+                                    {{Form::radio('type', 'popular')}} Popular
                                 </label>
                                 <br>
                                 <label class="radio-inline">
                                     {{Form::radio('type', 'recent')}} Recent
-                                </label>
-                                <br>
-                                <label class="radio-inline">
-                                    {{Form::radio('type', 'mixed')}} Popular & Recent
                                 </label>
                             </div>
                             <div class="col-sm-3">
