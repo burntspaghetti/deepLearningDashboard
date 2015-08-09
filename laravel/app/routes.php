@@ -15,13 +15,7 @@ require_once '../alchemyapi_php/alchemyapi.php';
 */
 
 
-Route::get('/test', function()
-{
-	return View::make('twitterSearch');
-});
-
-
-Route::get('/twitter', 'TwitterController@home');
+Route::get('/', 'TwitterController@home');
 Route::post('/twitterSearch', 'TwitterController@search');
 Route::get('/twitter/searchResults', 'TwitterController@results');
 
