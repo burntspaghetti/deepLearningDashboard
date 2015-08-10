@@ -111,7 +111,7 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        <a class="text-info" href="{{$intel['link']}}">link</a>
+                                        <a class="text-info" target="_blank" href="{{$intel['link']}}">link</a>
                                     </ul>
                                 </td>
                             </tr>
