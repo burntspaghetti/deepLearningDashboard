@@ -2,9 +2,9 @@
 @section('content')
     <br>
     <br>
-    <div align="center">
-        <a href="{{ action('StackExchangeController@home') }}" class="btn btn-info">New Stack Search</a>
-    </div>
+    {{--<div align="center">--}}
+        {{--<a href="{{ action('StackExchangeController@home') }}" class="btn btn-info">New Stack Search</a>--}}
+    {{--</div>--}}
     {{--<div class="col-lg-8 col-lg-offset-2">--}}
         {{--<div class="bs-component">--}}
             {{--<div class="well">--}}

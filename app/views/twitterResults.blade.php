@@ -2,9 +2,9 @@
 @section('content')
     <br>
     <br>
-    <div align="center">
-        <a href="{{ action('TwitterController@home') }}" class="btn btn-info">New Twitter Search</a>
-    </div>
+    {{--<div align="center">--}}
+        {{--<a href="{{ action('TwitterController@home') }}" class="btn btn-info">New Twitter Search</a>--}}
+    {{--</div>--}}
     {{--<div class="col-lg-9 col-lg-offset-1">--}}
         {{--<div class="bs-component">--}}
             {{--<div class="well">--}}
